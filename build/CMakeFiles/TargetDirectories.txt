@@ -1,5 +1,0 @@
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/CMakeFiles/main.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/CMakeFiles/initial_tests.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/CMakeFiles/test.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/CMakeFiles/edit_cache.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/CMakeFiles/rebuild_cache.dir

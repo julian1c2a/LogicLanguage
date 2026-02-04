@@ -1,5 +1,0 @@
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/main.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/initial_tests.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/RUN_TESTS.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/ALL_BUILD.dir
-C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/ZERO_CHECK.dir
