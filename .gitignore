@@ -1,31 +1,34 @@
-# Archivos de compilación
-build/
+# Directorios de compilación
+/build/
+
+# Archivos de compilador e IDE
 *.o
 *.obj
-*.so
-*.a
-*.lib
-*.dll
 *.exe
-*.out
+*.dll
+*.so
+*.lib
+*.a
+*.ilk
+*.pdb
+*.exp
+*.map
+*.pch
+*.gch
+*.vs
+*.vscode/
+.idea/
+compile_commands.json
 
-# Archivos de CMake
+# Archivos temporales de CMake
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-
-# Archivos del IDE
-.vscode/
-*.suo
-*.user
-
-# Cache de Python
-__pycache__/
-*.pyc
+CMakeUserPresets.json
 
 # Otros
-CRASH/
-*.log
-env_dump.bat
+*~
+*.swp
+*.swo
+CRASH
+__pycache__/
