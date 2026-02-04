@@ -1,48 +1,41 @@
-# Cache de CMake y archivos de compilación
-**/CMakeCache.txt
-**/CMakeFiles
-**/cmake_install.cmake
-**/compile_commands.json
-
-# Directorios de compilación
+# Archivos de compilación
 build/
 build-*/
-**/build/
-**/build-*/
-out/
-**/out/
-
-# Archivos de Visual Studio Code (excluyendo configuraciones comunes)
-.vscode/*
-!.vscode/settings.json
-!.vscode/launch.json
-!.vscode/tasks.json
-!.vscode/c_cpp_properties.json
-
-# Archivos de compiladores y enlazadores
-*.o
-*.obj
+*.exe
+*.out
+*.dll
+*.so
 *.a
 *.lib
-*.so
-*.dll
-*.exe
+*.o
+*.obj
 *.ilk
 *.pdb
-*.tlog
-*.pch
-*.gch
+*.exp
+*.manifest
+*.bin
 
-# Archivos temporales específicos del entorno
-env_dump.bat
-intel_env.tmp
+# Directorios de CMake
+CMake/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# Archivos específicos del IDE
+.vscode/*
+!.vscode/launch.json
+.idea/
+*.suo
+*.user
+*.sln
+*.sln.docstates
 
 # Cache de Python
 __pycache__/
 *.pyc
 
 # Otros
+CRASH/
 *.log
-*.tmp
-*~
-.DS_Store
