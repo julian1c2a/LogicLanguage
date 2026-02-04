@@ -1,61 +1,31 @@
-# Build artifacts
-/build/
-/build-*/
-
-# CMake files
-/CMakeCache.txt
-/CMakeFiles/
-/cmake_install.cmake
-/CTestTestfile.cmake
-/compile_commands.json
-/Makefile
-
-# Visual Studio solution files
-*.vcxproj
-*.vcxproj.filters
-*.sln
-*.suo
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Libraries
-*.dll
+# Archivos de compilación
+build/
+*.o
+*.obj
 *.so
 *.a
 *.lib
-*.dylib
+*.dll
+*.exe
+*.out
 
-# Object files
-*.o
-*.obj
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
 
-# Debugging files
-*.pdb
-*.ilk
-*.gdb
+# Archivos del IDE
+.vscode/
+*.suo
+*.user
 
-# Ninja build files
-.ninja_log
-.ninja_deps
-
-# VSCode specific
-.vscode/*
-!.vscode/settings.json
-!.vscode/launch.json
-!.vscode/tasks.json
-
-# Python cache
+# Cache de Python
 __pycache__/
 *.pyc
 
-# Temporary files
-*.tmp
-
-# Crash dumps
-/CRASH/
-
-# Intel temporary files
-intel_env.tmp
+# Otros
+CRASH/
+*.log
+env_dump.bat
