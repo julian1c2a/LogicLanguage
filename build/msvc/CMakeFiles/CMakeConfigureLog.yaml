@@ -1,0 +1,589 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26200 - AMD64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "C:/msys64/ucrt64/share/cmake/Modules/"
+    found: "C:/msys64/ucrt64/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+      ENV{INCLUDE}:
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\include"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\winrt"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Versi├│n de MSBuild 17.14.40+3e7442088 para .NET Framework
+      Compilaci├│n iniciada a las 04/02/2026 15:03:37.
+      
+      Proyecto "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" en nodo 1 (destinos predeterminados).
+      PrepareForBuild:
+        Creando directorio "Debug\\".
+        La salida estructurada est├í habilitada. El formato del diagn├│stico del compilador reflejar├í la jerarqu├¡a de errores. Consulte https://aka.ms/cpp/structured-output para obtener m├ís detalles.
+        Creando directorio "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Se crear├í "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" porque se especific├│ "AlwaysCreate".
+        Aplicando tarea Touch a "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Se eliminar├í el archivo "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Aplicando tarea Touch a "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Compilaci├│n del proyecto terminada "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (destinos predeterminados).
+      
+      Compilaci├│n correcta.
+          0 Advertencia(s)
+          0 Errores
+      
+      Tiempo transcurrido 00:00:05.26
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/4.2.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+    searched_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
+    found: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+    searched_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/lld-link"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link"
+      - "C:/msys64/ucrt64/bin/lld-link.com"
+    found: "C:/msys64/ucrt64/bin/lld-link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+    searched_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
+    found: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_MT"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "mt"
+    candidate_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+    searched_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.com"
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.exe"
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/mt.com"
+    found: "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/mt.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lib"
+    candidate_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+    searched_directories:
+      - "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.com"
+    found: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineRCCompiler.cmake:40 (find_program)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-MSVC.cmake:580 (enable_language)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-MSVC.cmake:553 (__windows_compiler_msvc_enable_rc)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/Platform/Windows-MSVC-CXX.cmake:6 (__windows_compiler_msvc)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeCXXInformation.cmake:48 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_RC_COMPILER"
+    description: "RC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rc"
+    candidate_directories:
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/bin/site_perl/5.38.5/"
+      - "C:/msys64/ucrt64/bin/vendor_perl/"
+      - "C:/msys64/ucrt64/bin/core_perl/"
+      - "C:/msys64/usr/local/bin/"
+      - "C:/msys64/usr/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/msys64/ucrt64/lib/emscripten/"
+      - "C:/msys64/ucrt64/lib/rustup/bin/"
+      - "D:/GDrive/NumericRepresentations_gamma/scripts/"
+      - "C:/msys64/ucrt64/home/julian/CppProjects/int128/scripts/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/msys64/ucrt64/sbin/"
+      - "C:/msys64/ucrt64/"
+      - "C:/Program Files (x86)/LogicLanguage/bin/"
+      - "C:/Program Files (x86)/LogicLanguage/sbin/"
+      - "C:/Program Files (x86)/LogicLanguage/"
+    searched_directories:
+      - "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/rc.com"
+    found: "C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64/rc.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\msys64\\ucrt64\\bin\\site_perl\\5.38.5"
+        - "C:\\msys64\\ucrt64\\bin\\vendor_perl"
+        - "C:\\msys64\\ucrt64\\bin\\core_perl"
+        - "C:\\msys64\\usr\\local\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\msys64\\usr\\bin"
+        - "C:\\Windows\\System32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\msys64\\ucrt64\\lib\\emscripten"
+        - "C:\\msys64\\ucrt64\\lib\\rustup\\bin"
+        - "D:\\gdrive\\numericrepresentations_gamma\\scripts"
+        - "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\int128\\scripts"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/LogicLanguage"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/msys64/ucrt64"
+        - "C:/Program Files (x86)/LogicLanguage"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/CMakeScratch/TryCompile-pynhba"
+      binary: "C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/CMakeScratch/TryCompile-pynhba"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/CMakeScratch/TryCompile-pynhba'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7c01a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Versi├│n de MSBuild 17.14.40+3e7442088 para .NET Framework
+        Compilaci├│n iniciada a las 04/02/2026 15:03:43.
+        
+        Proyecto "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\CMakeScratch\\TryCompile-pynhba\\cmTC_7c01a.vcxproj" en nodo 1 (destinos predeterminados).
+        PrepareForBuild:
+          La salida estructurada est├í habilitada. El formato del diagn├│stico del compilador reflejar├í la jerarqu├¡a de errores. Consulte https://aka.ms/cpp/structured-output para obtener m├ís detalles.
+          Creando directorio "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\CMakeScratch\\TryCompile-pynhba\\Debug\\".
+          Creando directorio "cmTC_7c01a.dir\\Debug\\cmTC_7c01a.tlog\\".
+        InitializeBuildStatus:
+          Se crear├í "cmTC_7c01a.dir\\Debug\\cmTC_7c01a.tlog\\unsuccessfulbuild" porque se especific├│ "AlwaysCreate".
+          Aplicando tarea Touch a "cmTC_7c01a.dir\\Debug\\cmTC_7c01a.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_7c01a.dir\\Debug\\\\" /Fd"cmTC_7c01a.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue C:\\msys64\\ucrt64\\share\\cmake\\Modules\\CMakeCXXCompilerABI.cpp
+          Compilador de optimizaci├│n de C/C++ de Microsoft (R) versi├│n 19.44.35222 para x64
+          (C) Microsoft Corporation. Todos los derechos reservados.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /Fo"cmTC_7c01a.dir\\Debug\\\\" /Fd"cmTC_7c01a.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue C:\\msys64\\ucrt64\\share\\cmake\\Modules\\CMakeCXXCompilerABI.cpp
+          CMakeCXXCompilerABI.cpp
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\CMakeScratch\\TryCompile-pynhba\\Debug\\cmTC_7c01a.exe" /INCREMENTAL /ILK:"cmTC_7c01a.dir\\Debug\\cmTC_7c01a.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/CMakeScratch/TryCompile-pynhba/Debug/cmTC_7c01a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/CMakeFiles/CMakeScratch/TryCompile-pynhba/Debug/cmTC_7c01a.lib" /MACHINE:X64  /machine:x64 cmTC_7c01a.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_7c01a.vcxproj -> C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\CMakeScratch\\TryCompile-pynhba\\Debug\\cmTC_7c01a.exe
+        FinalizeBuildStatus:
+          Se eliminar├í el archivo "cmTC_7c01a.dir\\Debug\\cmTC_7c01a.tlog\\unsuccessfulbuild".
+          Aplicando tarea Touch a "cmTC_7c01a.dir\\Debug\\cmTC_7c01a.tlog\\cmTC_7c01a.lastbuildstate".
+        Compilaci├│n del proyecto terminada "C:\\msys64\\ucrt64\\home\\julian\\CppProjects\\LogicLanguage\\build\\msvc\\CMakeFiles\\CMakeScratch\\TryCompile-pynhba\\cmTC_7c01a.vcxproj" (destinos predeterminados).
+        
+        Compilaci├│n correcta.
+            0 Advertencia(s)
+            0 Errores
+        
+        Tiempo transcurrido 00:00:00.85
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.44.35222.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+...

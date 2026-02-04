@@ -1,0 +1,7 @@
+# ninja log v7
+5	3854	7919169635922383	CMakeFiles/main.dir/src/main.cpp.obj	1b60f8317ff5f7ef
+21	178	7919181554496652	main.exe	51fce6f12375e177
+14	432	7919181554430159	CMakeFiles/initial_tests.dir/tests/initial_tests.cpp.obj	1865761063b90f5b
+434	544	7919181558622361	initial_tests.exe	79dd6f9f8a61229f
+12	906	7919319185208485	CMakeFiles/initial_tests.dir/tests/initial_tests.cpp.obj	1865761063b90f5b
+907	1202	7919319194154318	initial_tests.exe	79dd6f9f8a61229f

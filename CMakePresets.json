@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22
+  },
+  "configurePresets": [
+    {
+      "name": "gcc",
+      "displayName": "GCC (MSYS2 UCRT64)",
+      "description": "Compilación con G++ en carpeta build/gcc",
+      "binaryDir": "${sourceDir}/build/gcc",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+        "CMAKE_C_COMPILER": "C:/msys64/ucrt64/bin/gcc.exe",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "clang",
+      "displayName": "Clang (MSYS2 Clang64)",
+      "description": "Compilación con Clang++ en carpeta build/clang",
+      "binaryDir": "${sourceDir}/build/clang",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "C:/msys64/clang64/bin/clang++.exe",
+        "CMAKE_C_COMPILER": "C:/msys64/clang64/bin/clang.exe",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "msvc",
+      "displayName": "MSVC (Visual Studio)",
+      "description": "Compilación con MSVC en carpeta build/msvc",
+      "binaryDir": "${sourceDir}/build/msvc",
+      "generator": "Visual Studio 17 2022",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug"
+      }
+    },
+    {
+      "name": "intel",
+      "displayName": "Intel oneAPI (ICX)",
+      "description": "Compilación con Intel oneAPI en carpeta build/intel",
+      "binaryDir": "${sourceDir}/build/intel",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "icx",
+        "CMAKE_C_COMPILER": "icx",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "gcc", "configurePreset": "gcc" },
+    { "name": "clang", "configurePreset": "clang" },
+    { "name": "intel", "configurePreset": "intel" },
+    { 
+      "name": "msvc", 
+      "configurePreset": "msvc",
+      "configuration": "Debug" 
+    }
+  ],
+  "testPresets": [
+    { "name": "gcc", "configurePreset": "gcc" },
+    { "name": "clang", "configurePreset": "clang" },
+    { "name": "intel", "configurePreset": "intel" },
+    { 
+      "name": "msvc", 
+      "configurePreset": "msvc",
+      "configuration": "Debug"
+    }
+  ]
+}

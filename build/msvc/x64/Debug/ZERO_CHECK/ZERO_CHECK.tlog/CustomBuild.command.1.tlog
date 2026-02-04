@@ -1,0 +1,10 @@
+^C:\MSYS64\UCRT64\HOME\JULIAN\CPPPROJECTS\LOGICLANGUAGE\BUILD\MSVC\CMAKEFILES\C1408BDF68A8DB64DBAE8B6AEFC62BC7\GENERATE.STAMP.RULE
+setlocal
+C:\msys64\ucrt64\bin\cmake.exe -SC:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage -BC:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/msvc/LogicLanguage.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

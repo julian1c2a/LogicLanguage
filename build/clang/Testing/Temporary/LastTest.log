@@ -1,0 +1,18 @@
+Start testing: Feb 04 19:11 Hora estándar romance
+----------------------------------------------------------
+1/1 Testing: initial_tests
+1/1 Test: initial_tests
+Command: "C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/clang/initial_tests.exe"
+Directory: C:/msys64/ucrt64/home/julian/CppProjects/LogicLanguage/build/clang
+"initial_tests" start time: Feb 04 19:11 Hora estándar romance
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"initial_tests" end time: Feb 04 19:11 Hora estándar romance
+"initial_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Feb 04 19:11 Hora estándar romance
