@@ -30,6 +30,14 @@ tools*/*
 tools*/*/*
 tools*/*/*/*
 
+# Código legado de Lean4
+
+Lean4Sources
+Lean4Sources/*
+Lean4Sources/*/*
+Lean4Sources/*/*/*
+Lean4Sources/*/*/*/*
+
 # Archivos específicos del IDE
 .vscode/*
 !.vscode/launch.json
