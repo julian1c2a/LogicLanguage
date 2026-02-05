@@ -22,7 +22,7 @@ int main() {
     
     PROOF_BEGIN proof_socrates_mortal = []() {
         // Premisa 1: ∀x.(Human(x) → Mortal(x))
-        using ForallHumanMortal = Forall<decltype(x), Implies<Human_x, Mortal_x>>;
+        using ForallHumanMortal = Forall<std::remove_cv_t<decltype(x)>, Implies<Human_x, Mortal_x>>;
         constexpr auto premise1 = ASSUME(ForallHumanMortal{});
         
         // Premisa 2: Human(socrates)
@@ -45,7 +45,7 @@ int main() {
     PROOF_END
     
     // Verificación estática: el teorema debe tener la forma correcta
-    using ForallHumanMortal = Forall<decltype(x), Implies<Human_x, Mortal_x>>;
+    using ForallHumanMortal = Forall<std::remove_cv_t<decltype(x)>, Implies<Human_x, Mortal_x>>;
     using Expected = If_Then<
         ForallHumanMortal,
         If_Then<Human_socrates, Mortal_socrates>
