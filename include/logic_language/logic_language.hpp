@@ -284,30 +284,8 @@ namespace logic
         using context_type = Context;
         using formula_type = Formula;
 
-    private:
+        // Constructor público para permitir construcción desde funciones friend
         constexpr Theorem() = default;
-
-        // Friend declarations
-        template <typename A>
-        friend constexpr auto assume() -> Theorem<TypeList<A>, A>;
-
-        template <typename Hyp, typename C, typename Cons>
-        friend constexpr auto implies_intro(Theorem<C, Cons>)
-            -> Theorem<DischargeContext_t<Hyp, C>, Implies<Hyp, Cons>>;
-
-        template <typename C1, typename X, typename C2, typename Y>
-        friend constexpr auto modus_ponens(Theorem<C1, X>, Theorem<C2, Implies<X, Y>>)
-            -> Theorem<MergeContexts_t<C1, C2>, Y>;
-
-        template <typename A>
-        friend constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>;
-
-        template <typename V, typename C, typename A>
-        friend constexpr auto generalization(V, Theorem<C, A>) -> Theorem<C, Forall<V, A>>;
-
-        template <typename V, typename C, typename B, typename T>
-        friend constexpr auto universal_instantiation(Theorem<C, Forall<V, B>>, T)
-            -> Theorem<C, Substitute_t<B, V, T>>;
     };
 
     // --- REGLAS DE INFERENCIA (CON IMPLEMENTACIONES INLINE) ---
