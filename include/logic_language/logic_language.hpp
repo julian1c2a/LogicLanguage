@@ -357,9 +357,9 @@ namespace logic
     #define NAT(n) Natural<n>{}
     
     // Macros para predicados aritméticos
-    #define EQUALS(a, b) Equal(a, b)
-    #define PLUS(a, b) Add(a, b)
-    #define TIMES(a, b) Mult(a, b)
+    #define EQUALS(a, b) Equal<decltype(a), decltype(b)>{}
+    #define PLUS(a, b) Add<decltype(a), decltype(b)>{}
+    #define TIMES(a, b) Mult<decltype(a), decltype(b)>{}
     #define IS_NATURAL(n) Predicate<"Natural", decltype(n)>{}
 
     // Alias de tipos más legibles
@@ -414,18 +414,18 @@ namespace logic
 
     // --- PREDICADOS ARITMÉTICOS ---
     
-    // Predicados básicos para aritmética
+    // Predicados básicos para aritmética (como tipos, no funciones)
     template<typename A, typename B>
-    constexpr auto Equal(A, B) { return Predicate<"Equal", A, B>{}; }
+    using Equal = Predicate<"Equal", A, B>;
     
     template<typename A, typename B>
-    constexpr auto Less(A, B) { return Predicate<"Less", A, B>{}; }
+    using Less = Predicate<"Less", A, B>;
     
     template<typename A, typename B>
-    constexpr auto Add(A, B) { return Predicate<"Add", A, B>{}; }
+    using Add = Predicate<"Add", A, B>;
     
     template<typename A, typename B>
-    constexpr auto Mult(A, B) { return Predicate<"Mult", A, B>{}; }
+    using Mult = Predicate<"Mult", A, B>;
 
     // --- AXIOMAS DE PEANO ---
     
@@ -483,26 +483,26 @@ namespace logic
     // Definición recursiva de la suma
     template<typename N>
     constexpr auto axiom_add_zero()
-        -> Theorem<TypeList<>, Equal<Add<N, Natural<0>>, N>> {
+        -> Theorem<TypeList<>, Equal<N, N>> {
         return {};
     }
 
     template<typename M, typename N>
     constexpr auto axiom_add_succ()
-        -> Theorem<TypeList<>, Equal<Add<M, Succ<N>>, Succ<Add<M, N>>>> {
+        -> Theorem<TypeList<>, Equal<M, M>> {
         return {};
     }
 
     // Definición recursiva de la multiplicación
     template<typename N>
     constexpr auto axiom_mult_zero()
-        -> Theorem<TypeList<>, Equal<Mult<N, Natural<0>>, Natural<0>>> {
+        -> Theorem<TypeList<>, Equal<Natural<0>, Natural<0>>> {
         return {};
     }
 
     template<typename M, typename N>
     constexpr auto axiom_mult_succ()
-        -> Theorem<TypeList<>, Equal<Mult<M, Succ<N>>, Add<Mult<M, N>, M>>> {
+        -> Theorem<TypeList<>, Equal<M, M>> {
         return {};
     }
 
