@@ -22,7 +22,8 @@ int main() {
     
     PROOF_BEGIN proof_socrates_mortal = []() {
         // Premisa 1: ∀x.(Human(x) → Mortal(x))
-        constexpr auto premise1 = ASSUME(forall(x, Human(x) >> Mortal(x)));
+        using ForallHumanMortal = Forall<decltype(x), Implies<Human_x, Mortal_x>>;
+        constexpr auto premise1 = ASSUME(ForallHumanMortal{});
         
         // Premisa 2: Human(socrates)
         constexpr auto premise2 = ASSUME(Human_socrates{});
@@ -37,15 +38,16 @@ int main() {
         
         // Descargar las premisas para obtener el teorema completo
         constexpr auto discharged1 = DISCHARGE(Human_socrates{}, conclusion);
-        constexpr auto final_theorem = DISCHARGE(forall(x, Human(x) >> Mortal(x)), discharged1);
+        constexpr auto final_theorem = DISCHARGE(ForallHumanMortal{}, discharged1);
         
         QED final_theorem;
     }();
     PROOF_END
     
     // Verificación estática: el teorema debe tener la forma correcta
+    using ForallHumanMortal = Forall<decltype(x), Implies<Human_x, Mortal_x>>;
     using Expected = If_Then<
-        decltype(forall(x, Human(x) >> Mortal(x))),
+        ForallHumanMortal,
         If_Then<Human_socrates, Mortal_socrates>
     >;
     
