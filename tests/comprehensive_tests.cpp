@@ -140,7 +140,7 @@ int main()
     
     static_assert(std::is_same_v<Context_Gen, TypeList<P_x>>, 
                   "Generalization debe preservar el contexto");
-    static_assert(check_type<Formula_Gen, Forall<decltype(x), P_x>>, 
+    static_assert(check_type<Formula_Gen, Forall<std::remove_cv_t<decltype(x)>, P_x>>, 
                   "Generalization debe crear cuantificador universal");
 
     // Test 4.3: Universal Instantiation con sustitución
@@ -191,21 +191,21 @@ int main()
     // ==========================================
     
     // Test 6.1: Sustitución en predicados simples
-    using Substituted_Simple = Substitute_t<P_x, decltype(x), decltype(y)>;
+    using Substituted_Simple = Substitute_t<P_x, std::remove_cv_t<decltype(x)>, std::remove_cv_t<decltype(y)>>;
     static_assert(check_type<Substituted_Simple, P_y>, 
                   "Sustitución simple x->y en P(x) debe dar P(y)");
 
     // Test 6.2: Sustitución en fórmulas complejas
     using Complex_Before = Implies<P_x, Q_x>;
-    using Complex_After = Substitute_t<Complex_Before, decltype(x), decltype(z)>;
+    using Complex_After = Substitute_t<Complex_Before, std::remove_cv_t<decltype(x)>, std::remove_cv_t<decltype(z)>>;
     using Expected_After = Implies<P_z, decltype(Q(z))>;
     
     static_assert(check_type<Complex_After, Expected_After>, 
                   "Sustitución debe aplicarse recursivamente en fórmulas complejas");
 
     // Test 6.3: Sustitución con shadowing en cuantificadores
-    using Quantified = Forall<decltype(x), P_x>;
-    using Shadowed = Substitute_t<Quantified, decltype(x), decltype(y)>;
+    using Quantified = Forall<std::remove_cv_t<decltype(x)>, P_x>;
+    using Shadowed = Substitute_t<Quantified, std::remove_cv_t<decltype(x)>, std::remove_cv_t<decltype(y)>>;
     
     static_assert(std::is_same_v<Shadowed, Quantified>, 
                   "Sustitución debe respetar shadowing en cuantificadores");

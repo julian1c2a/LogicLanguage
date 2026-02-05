@@ -150,30 +150,40 @@ namespace logic
         using type = Predicate<N, Substitute_t<Args, Target, Replacement>...>;
     };
 
-    // 3. Operadores Binarios
-    template <template <typename, typename> class Op, typename L, typename R, typename T, typename Rep>
-        requires std::is_base_of_v<ExpressionBase, Op<L, R>>
-    struct Substitute<Op<L, R>, T, Rep>
-    {
-        using type = Op<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
-    };
-
-    // 4. Operador Unario
+    // 3. Operador Unario
     template <typename Op, typename T, typename Rep>
     struct Substitute<Not<Op>, T, Rep>
     {
         using type = Not<Substitute_t<Op, T, Rep>>;
     };
 
-    // 5. Cuantificadores
-    template <template <typename, typename> class Quant, typename V, typename Body, typename T, typename Rep>
-        requires(std::is_same_v<Quant<V, Body>, Forall<V, Body>> || std::is_same_v<Quant<V, Body>, Exists<V, Body>>)
-    struct Substitute<Quant<V, Body>, T, Rep>
+    // 4. Cuantificadores (especializaciones específicas para evitar ambigüedad)
+    template <typename V, typename Body, typename T, typename Rep>
+    struct Substitute<Forall<V, Body>, T, Rep>
     {
         using type = std::conditional_t<
-            std::is_same_v<V, T>,
-            Quant<V, Body>, // Shadowing
-            Quant<V, Substitute_t<Body, T, Rep>>>;
+            std::is_same_v<std::remove_cv_t<V>, std::remove_cv_t<T>>,
+            Forall<V, Body>, // Shadowing
+            Forall<V, Substitute_t<Body, T, Rep>>>;
+    };
+
+    template <typename V, typename Body, typename T, typename Rep>
+    struct Substitute<Exists<V, Body>, T, Rep>
+    {
+        using type = std::conditional_t<
+            std::is_same_v<std::remove_cv_t<V>, std::remove_cv_t<T>>,
+            Exists<V, Body>, // Shadowing
+            Exists<V, Substitute_t<Body, T, Rep>>>;
+    };
+
+    // 5. Operadores Binarios (debe ir después de cuantificadores para evitar ambigüedad)
+    template <template <typename, typename> class Op, typename L, typename R, typename T, typename Rep>
+        requires std::is_base_of_v<ExpressionBase, Op<L, R>> && 
+                 !std::is_same_v<Op<L, R>, Forall<L, R>> && 
+                 !std::is_same_v<Op<L, R>, Exists<L, R>>
+    struct Substitute<Op<L, R>, T, Rep>
+    {
+        using type = Op<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
     };
 
     // =========================================================
