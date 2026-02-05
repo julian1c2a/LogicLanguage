@@ -48,3 +48,4 @@ CRASH/
 *.log
 .env
 .aider*
+.aider.conf.yml
