@@ -23,15 +23,8 @@ namespace logic
         }
         auto operator<=>(const FixedString &) const = default;
     };
-    // Guía de deducción explícita para ayudar al compilador
     template <size_t N>
     FixedString(const char (&)[N]) -> FixedString<N>;
-
-    // Helper para static_assert
-    template <typename T>
-    struct always_false : std::false_type
-    {
-    };
 
     template <typename T>
     concept LogicExpression = requires { typename T::IsLogicExpression; };
@@ -46,7 +39,6 @@ namespace logic
     struct Var : ExpressionBase
     {
         static constexpr auto name = Name;
-        // Identidad para sustitución
         using Type = Var<Name>;
     };
 
@@ -57,7 +49,6 @@ namespace logic
     template <FixedString Name, typename... Args>
     struct Predicate : ExpressionBase
     {
-        using ArgTypes = std::tuple<Args...>;
         static constexpr auto name = Name;
     };
 
@@ -130,33 +121,10 @@ namespace logic
         return Forall<V, BodyType>{};
     }
 
-    template <typename V, typename Func>
-    constexpr auto exists(V var, Func f)
-    {
-        using BodyType = decltype(f(var));
-        return Exists<V, BodyType>{};
-    }
-
     template <typename... Args>
     constexpr auto P(Args... args) { return Predicate<"P", Args...>{}; }
     template <typename... Args>
     constexpr auto Q(Args... args) { return Predicate<"Q", Args...>{}; }
-
-    // Funciones helper ASCII para evitar operadores si se prefiere estilo funcional
-    template <LogicExpression L, LogicExpression R>
-    constexpr auto implies(L, R) { return Implies<L, R>{}; }
-
-    template <LogicExpression L, LogicExpression R>
-    constexpr auto and_(L, R) { return And<L, R>{}; }
-
-    template <LogicExpression L, LogicExpression R>
-    constexpr auto or_(L, R) { return Or<L, R>{}; }
-
-    template <LogicExpression L, LogicExpression R>
-    constexpr auto equiv(L, R) { return Equiv<L, R>{}; }
-
-    template <LogicExpression T>
-    constexpr auto not_(T) { return Not<T>{}; }
 
     // =========================================================
     // === SUBSTITUTION ENGINE (Metaprogramming) ===
@@ -165,7 +133,6 @@ namespace logic
     template <typename Node, typename Target, typename Replacement>
     struct Substitute;
 
-    // Alias de conveniencia
     template <typename Node, typename Target, typename Replacement>
     using Substitute_t = typename Substitute<Node, Target, Replacement>::type;
 
@@ -176,7 +143,7 @@ namespace logic
         using type = std::conditional_t<std::is_same_v<Var<N>, Target>, Replacement, Var<N>>;
     };
 
-    // 2. Caso Predicate: Sustitución variádica recursiva
+    // 2. Caso Predicate
     template <auto N, typename... Args, typename Target, typename Replacement>
     struct Substitute<Predicate<N, Args...>, Target, Replacement>
     {
@@ -184,28 +151,11 @@ namespace logic
     };
 
     // 3. Operadores Binarios
-    template <typename L, typename R, typename T, typename Rep>
-    struct Substitute<And<L, R>, T, Rep>
+    template <template <typename, typename> class Op, typename L, typename R, typename T, typename Rep>
+        requires std::is_base_of_v<ExpressionBase, Op<L, R>>
+    struct Substitute<Op<L, R>, T, Rep>
     {
-        using type = And<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
-    };
-
-    template <typename L, typename R, typename T, typename Rep>
-    struct Substitute<Or<L, R>, T, Rep>
-    {
-        using type = Or<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
-    };
-
-    template <typename L, typename R, typename T, typename Rep>
-    struct Substitute<Implies<L, R>, T, Rep>
-    {
-        using type = Implies<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
-    };
-
-    template <typename L, typename R, typename T, typename Rep>
-    struct Substitute<Equiv<L, R>, T, Rep>
-    {
-        using type = Equiv<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
+        using type = Op<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
     };
 
     // 4. Operador Unario
@@ -216,94 +166,178 @@ namespace logic
     };
 
     // 5. Cuantificadores
-    template <typename V, typename Body, typename T, typename Rep>
-    struct Substitute<Forall<V, Body>, T, Rep>
+    template <template <typename, typename> class Quant, typename V, typename Body, typename T, typename Rep>
+        requires(std::is_same_v<Quant<V, Body>, Forall<V, Body>> || std::is_same_v<Quant<V, Body>, Exists<V, Body>>)
+    struct Substitute<Quant<V, Body>, T, Rep>
     {
         using type = std::conditional_t<
             std::is_same_v<V, T>,
-            Forall<V, Body>,                      // Shadowing: No sustituir dentro
-            Forall<V, Substitute_t<Body, T, Rep>> // Recurrir
-            >;
+            Quant<V, Body>, // Shadowing
+            Quant<V, Substitute_t<Body, T, Rep>>>;
     };
 
-    template <typename V, typename Body, typename T, typename Rep>
-    struct Substitute<Exists<V, Body>, T, Rep>
+    // =========================================================
+    // === CONTEXT MANAGEMENT (TypeList Ops) ===
+    // =========================================================
+
+    // Contenedor básico de hipótesis
+    template <typename... Ts>
+    struct TypeList
     {
-        using type = std::conditional_t<
-            std::is_same_v<V, T>,
-            Exists<V, Body>,                      // Shadowing: No sustituir dentro
-            Exists<V, Substitute_t<Body, T, Rep>> // Recurrir
-            >;
+        static constexpr size_t size = sizeof...(Ts);
     };
 
+    // --- Concat (Unión de contextos) ---
+    template <typename List1, typename List2>
+    struct ConcatLists;
+
+    template <typename... As, typename... Bs>
+    struct ConcatLists<TypeList<As...>, TypeList<Bs...>>
+    {
+        using type = TypeList<As..., Bs...>;
+    };
+
+    // --- Remove (Para descargar hipótesis) ---
+    // Elimina TODAS las ocurrencias del tipo T de la lista
+    template <typename Target, typename List>
+    struct RemoveType;
+
+    template <typename Target>
+    struct RemoveType<Target, TypeList<>>
+    {
+        using type = TypeList<>;
+    };
+
+    template <typename Target, typename Head, typename... Tail>
+    struct RemoveType<Target, TypeList<Head, Tail...>>
+    {
+        using TailRemoved = typename RemoveType<Target, TypeList<Tail...>>::type;
+        // Si Head es Target, no lo incluimos. Si es distinto, lo concatenamos.
+        using type = std::conditional_t<
+            std::is_same_v<Target, Head>,
+            TailRemoved,
+            typename ConcatLists<TypeList<Head>, TailRemoved>::type>;
+    };
+
+    // --- Unique (Para evitar contextos gigantes con duplicados) ---
+    // Nota: Para una implementación completa, se necesitaría un 'Filter' o 'Unique' más complejo.
+    // Por ahora, permitiremos duplicados en la lista pero 'Remove' los quitará todos.
+    // Alias helper:
+    template <typename L1, typename L2>
+    using MergeContexts_t = typename ConcatLists<L1, L2>::type;
+
+    template <typename T, typename List>
+    using DischargeContext_t = typename RemoveType<T, List>::type;
+
     // =========================================================
-    // === DEDUCTIVE SYSTEM (Kernel) ===
+    // === DEDUCTIVE SYSTEM (Natural Deduction) ===
     // =========================================================
 
-    template <typename Formula>
+    // Theorem ahora lleva el Contexto (Gamma |- Formula)
+    template <typename Context, typename Formula>
     struct Theorem;
 
     // --- REGLAS DE INFERENCIA ---
 
+    // 1. Assumption (Gamma, A |- A)
     template <typename A>
-    constexpr auto AxiomIdentity(A) -> Theorem<Implies<A, A>>;
+    constexpr auto assume() -> Theorem<TypeList<A>, A>;
 
-    template <typename A, typename B>
-    constexpr auto ModusPonens(Theorem<A>, Theorem<Implies<A, B>>) -> Theorem<B>;
+    // 2. Implication Introduction (Gamma |- A -> B)
+    // Descarga la hipótesis A del contexto de B
+    template <typename Hyp, typename Ctx, typename Conseq>
+    constexpr auto implies_intro(Theorem<Ctx, Conseq>)
+        -> Theorem<DischargeContext_t<Hyp, Ctx>, Implies<Hyp, Conseq>>;
 
-    template <typename V, typename A>
-    constexpr auto Generalization(V var, Theorem<A> thm) -> Theorem<Forall<V, A>>;
+    // 3. Modus Ponens (Gamma1, Gamma2 |- B)
+    // Fusiona contextos
+    template <typename Ctx1, typename A, typename Ctx2, typename B>
+    constexpr auto modus_ponens(Theorem<Ctx1, A>, Theorem<Ctx2, Implies<A, B>>)
+        -> Theorem<MergeContexts_t<Ctx1, Ctx2>, B>;
 
-    template <typename V, typename Body, typename Term>
-    constexpr auto UniversalInstantiation(Theorem<Forall<V, Body>>, Term)
-        -> Theorem<Substitute_t<Body, V, Term>>;
+    // 4. Axiom Identity (Ahora derivado o mantenido como base vacía)
+    template <typename A>
+    constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>;
 
-    // --- THEOREM WRAPPER ---
-    template <typename Formula>
+    // 5. Generalization (Mantiene contexto)
+    template <typename V, typename Ctx, typename A>
+    constexpr auto generalization(V var, Theorem<Ctx, A> thm) -> Theorem<Ctx, Forall<V, A>>;
+
+    // 6. Universal Instantiation (Mantiene contexto)
+    template <typename V, typename Ctx, typename Body, typename Term>
+    constexpr auto universal_instantiation(Theorem<Ctx, Forall<V, Body>>, Term)
+        -> Theorem<Ctx, Substitute_t<Body, V, Term>>;
+
+    // --- THEOREM DEFINITION ---
+    template <typename Context, typename Formula>
     struct Theorem
     {
-        using type = Formula;
+        using context_type = Context;
+        using formula_type = Formula;
 
     private:
         constexpr Theorem() = default;
 
+        // Friend declarations
         template <typename A>
-        friend constexpr auto AxiomIdentity(A) -> Theorem<Implies<A, A>>;
+        friend constexpr auto assume() -> Theorem<TypeList<A>, A>;
 
-        template <typename A, typename B>
-        friend constexpr auto ModusPonens(Theorem<A>, Theorem<Implies<A, B>>) -> Theorem<B>;
+        template <typename Hyp, typename C, typename Cons>
+        friend constexpr auto implies_intro(Theorem<C, Cons>)
+            -> Theorem<DischargeContext_t<Hyp, C>, Implies<Hyp, Cons>>;
 
-        template <typename V, typename A>
-        friend constexpr auto Generalization(V, Theorem<A>) -> Theorem<Forall<V, A>>;
+        template <typename C1, typename X, typename C2, typename Y>
+        friend constexpr auto modus_ponens(Theorem<C1, X>, Theorem<C2, Implies<X, Y>>)
+            -> Theorem<MergeContexts_t<C1, C2>, Y>;
 
-        template <typename V, typename B, typename Term>
-        friend constexpr auto UniversalInstantiation(Theorem<Forall<V, B>>, Term)
-            -> Theorem<Substitute_t<B, V, Term>>;
+        template <typename A>
+        friend constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>;
+
+        template <typename V, typename C, typename A>
+        friend constexpr auto generalization(V, Theorem<C, A>) -> Theorem<C, Forall<V, A>>;
+
+        template <typename V, typename C, typename B, typename T>
+        friend constexpr auto universal_instantiation(Theorem<C, Forall<V, B>>, T)
+            -> Theorem<C, Substitute_t<B, V, T>>;
     };
 
-    // --- IMPLEMENTACIÓN ---
+    // --- IMPLEMENTACIÓN INLINE ---
 
     template <typename A>
-    constexpr auto AxiomIdentity(A) -> Theorem<Implies<A, A>>
+    constexpr auto assume() -> Theorem<TypeList<A>, A>
     {
         return {};
     }
 
-    template <typename A, typename B>
-    constexpr auto ModusPonens(Theorem<A>, Theorem<Implies<A, B>>) -> Theorem<B>
+    template <typename Hyp, typename Ctx, typename Conseq>
+    constexpr auto implies_intro(Theorem<Ctx, Conseq>)
+        -> Theorem<DischargeContext_t<Hyp, Ctx>, Implies<Hyp, Conseq>>
     {
         return {};
     }
 
-    template <typename V, typename A>
-    constexpr auto Generalization(V, Theorem<A>) -> Theorem<Forall<V, A>>
+    template <typename Ctx1, typename A, typename Ctx2, typename B>
+    constexpr auto modus_ponens(Theorem<Ctx1, A>, Theorem<Ctx2, Implies<A, B>>)
+        -> Theorem<MergeContexts_t<Ctx1, Ctx2>, B>
     {
         return {};
     }
 
-    template <typename V, typename Body, typename Term>
-    constexpr auto UniversalInstantiation(Theorem<Forall<V, Body>>, Term)
-        -> Theorem<Substitute_t<Body, V, Term>>
+    template <typename A>
+    constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>
+    {
+        return {};
+    }
+
+    template <typename V, typename Ctx, typename A>
+    constexpr auto generalization(V, Theorem<Ctx, A>) -> Theorem<Ctx, Forall<V, A>>
+    {
+        return {};
+    }
+
+    template <typename V, typename Ctx, typename Body, typename Term>
+    constexpr auto universal_instantiation(Theorem<Ctx, Forall<V, Body>>, Term)
+        -> Theorem<Ctx, Substitute_t<Body, V, Term>>
     {
         return {};
     }

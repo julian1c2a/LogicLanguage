@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.22)
-project(LogicLanguage VERSION 1.0 LANGUAGES CXX)
+project(LogicLanguage VERSION 1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Define la librería principal de nuestro lenguaje
+# Define la librería principal
 add_library(logic_language INTERFACE)
 target_include_directories(logic_language INTERFACE 
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
@@ -15,31 +15,31 @@ target_include_directories(logic_language INTERFACE
 add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE logic_language)
 
-# Configuración de flags según el compilador (MSVC vs GCC/Clang)
 if(MSVC)
     target_compile_options(main PRIVATE /utf-8)
 else()
-    target_compile_options(main PRIVATE 
-        -fextended-identifiers
-        -finput-charset=UTF-8
-    )
+    target_compile_options(main PRIVATE -fextended-identifiers -finput-charset=UTF-8)
 endif()
 
 # --- TESTS ---
 enable_testing()
 
-# Agrega un ejecutable para los tests
-add_executable(initial_tests tests/initial_tests.cpp)
-target_link_libraries(initial_tests PRIVATE logic_language)
+# Helper macro para añadir tests
+macro(add_logic_test test_name source_file)
+    add_executable(${test_name} ${source_file})
+    target_link_libraries(${test_name} PRIVATE logic_language)
+    
+    if(MSVC)
+        target_compile_options(${test_name} PRIVATE /utf-8)
+    else()
+        target_compile_options(${test_name} PRIVATE -fextended-identifiers -finput-charset=UTF-8)
+    endif()
+    
+    add_test(NAME ${test_name} COMMAND ${test_name})
+endmacro()
 
-if(MSVC)
-    target_compile_options(initial_tests PRIVATE /utf-8)
-else()
-    target_compile_options(initial_tests PRIVATE 
-        -fextended-identifiers
-        -finput-charset=UTF-8
-    )
-endif()
+# Test Fase 2 (Axiomático - Legacy adaptado)
+add_logic_test(initial_tests tests/initial_tests.cpp)
 
-# Agrega un test de CTest
-add_test(NAME initial_tests COMMAND initial_tests)
+# Test Fase 3 (Deducción Natural - Nuevo)
+add_logic_test(natural_deduction tests/natural_deduction_tests.cpp)
