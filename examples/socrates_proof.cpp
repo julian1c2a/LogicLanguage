@@ -20,29 +20,24 @@ int main() {
     // DEMOSTRACIÓN CLÁSICA CON SINTAXIS MEJORADA
     // ==========================================
     
-    PROOF_BEGIN proof_socrates_mortal = []() {
-        // Premisa 1: ∀x.(Human(x) → Mortal(x))
-        using ForallHumanMortal = Forall<std::remove_cv_t<decltype(x)>, Implies<Human_x, Mortal_x>>;
-        constexpr auto premise1 = ASSUME(ForallHumanMortal{});
-        
-        // Premisa 2: Human(socrates)
-        constexpr auto premise2 = ASSUME(Human_socrates{});
-        
-        // Paso 1: Instanciar el universal con 'socrates'
-        // De ∀x.(Human(x) → Mortal(x)) obtenemos Human(socrates) → Mortal(socrates)
-        constexpr auto step1 = FORALL_ELIM(premise1, socrates);
-        
-        // Paso 2: Aplicar Modus Ponens
-        // De Human(socrates) y Human(socrates) → Mortal(socrates) obtenemos Mortal(socrates)
-        constexpr auto conclusion = APPLY_MP(premise2, step1);
-        
-        // Descargar las premisas para obtener el teorema completo
-        constexpr auto discharged1 = DISCHARGE(Human_socrates{}, conclusion);
-        constexpr auto final_theorem = DISCHARGE(ForallHumanMortal{}, discharged1);
-        
-        QED final_theorem;
-    }();
-    PROOF_END
+    // Premisa 1: ∀x.(Human(x) → Mortal(x))
+    using ForallHumanMortal = Forall<std::remove_cv_t<decltype(x)>, Implies<Human_x, Mortal_x>>;
+    constexpr auto premise1 = ASSUME(ForallHumanMortal{});
+    
+    // Premisa 2: Human(socrates)
+    constexpr auto premise2 = ASSUME(Human_socrates{});
+    
+    // Paso 1: Instanciar el universal con 'socrates'
+    // De ∀x.(Human(x) → Mortal(x)) obtenemos Human(socrates) → Mortal(socrates)
+    constexpr auto step1 = FORALL_ELIM(premise1, socrates);
+    
+    // Paso 2: Aplicar Modus Ponens
+    // De Human(socrates) y Human(socrates) → Mortal(socrates) obtenemos Mortal(socrates)
+    constexpr auto conclusion = APPLY_MP(premise2, step1);
+    
+    // Descargar las premisas para obtener el teorema completo
+    constexpr auto discharged1 = DISCHARGE(Human_socrates{}, conclusion);
+    constexpr auto proof_socrates_mortal = DISCHARGE(ForallHumanMortal{}, discharged1);
     
     // Verificación estática: el teorema debe tener la forma correcta
     using ForallHumanMortal = Forall<std::remove_cv_t<decltype(x)>, Implies<Human_x, Mortal_x>>;

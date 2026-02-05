@@ -276,37 +276,6 @@ namespace logic
         using type = Ctx;
     };
 
-    // --- REGLAS DE INFERENCIA ---
-
-    // 1. Assumption (Gamma, A |- A)
-    template <typename A>
-        requires ValidFormula<A>
-    constexpr auto assume() -> Theorem<TypeList<A>, A>;
-
-    // 2. Implication Introduction (Gamma |- A -> B)
-    // Descarga la hipótesis A del contexto de B
-    template <typename Hyp, typename Ctx, typename Conseq>
-    constexpr auto implies_intro(Theorem<Ctx, Conseq>)
-        -> Theorem<DischargeContext_t<Hyp, Ctx>, Implies<Hyp, Conseq>>;
-
-    // 3. Modus Ponens (Gamma1, Gamma2 |- B)
-    // Fusiona contextos
-    template <typename Ctx1, typename A, typename Ctx2, typename B>
-    constexpr auto modus_ponens(Theorem<Ctx1, A>, Theorem<Ctx2, Implies<A, B>>)
-        -> Theorem<MergeContexts_t<Ctx1, Ctx2>, B>;
-
-    // 4. Axiom Identity (Ahora derivado o mantenido como base vacía)
-    template <typename A>
-    constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>;
-
-    // 5. Generalization (Mantiene contexto)
-    template <typename V, typename Ctx, typename A>
-    constexpr auto generalization(V var, Theorem<Ctx, A> thm) -> Theorem<Ctx, Forall<V, A>>;
-
-    // 6. Universal Instantiation (Mantiene contexto)
-    template <typename V, typename Ctx, typename Body, typename Term>
-    constexpr auto universal_instantiation(Theorem<Ctx, Forall<V, Body>>, Term)
-        -> Theorem<Ctx, Substitute_t<Body, V, Term>>;
 
     // --- THEOREM DEFINITION ---
     template <typename Context, typename Formula>
@@ -341,14 +310,18 @@ namespace logic
             -> Theorem<C, Substitute_t<B, V, T>>;
     };
 
-    // --- IMPLEMENTACIÓN INLINE ---
+    // --- REGLAS DE INFERENCIA (CON IMPLEMENTACIONES INLINE) ---
 
+    // 1. Assumption (Gamma, A |- A)
     template <typename A>
+        requires ValidFormula<A>
     constexpr auto assume() -> Theorem<TypeList<A>, A>
     {
         return {};
     }
 
+    // 2. Implication Introduction (Gamma |- A -> B)
+    // Descarga la hipótesis A del contexto de B
     template <typename Hyp, typename Ctx, typename Conseq>
     constexpr auto implies_intro(Theorem<Ctx, Conseq>)
         -> Theorem<DischargeContext_t<Hyp, Ctx>, Implies<Hyp, Conseq>>
@@ -356,6 +329,8 @@ namespace logic
         return {};
     }
 
+    // 3. Modus Ponens (Gamma1, Gamma2 |- B)
+    // Fusiona contextos
     template <typename Ctx1, typename A, typename Ctx2, typename B>
     constexpr auto modus_ponens(Theorem<Ctx1, A>, Theorem<Ctx2, Implies<A, B>>)
         -> Theorem<MergeContexts_t<Ctx1, Ctx2>, B>
@@ -363,18 +338,21 @@ namespace logic
         return {};
     }
 
+    // 4. Axiom Identity (Ahora derivado o mantenido como base vacía)
     template <typename A>
     constexpr auto axiom_identity(A) -> Theorem<TypeList<>, Implies<A, A>>
     {
         return {};
     }
 
+    // 5. Generalization (Mantiene contexto)
     template <typename V, typename Ctx, typename A>
     constexpr auto generalization(V, Theorem<Ctx, A>) -> Theorem<Ctx, Forall<V, A>>
     {
         return {};
     }
 
+    // 6. Universal Instantiation (Mantiene contexto)
     template <typename V, typename Ctx, typename Body, typename Term>
     constexpr auto universal_instantiation(Theorem<Ctx, Forall<V, Body>>, Term)
         -> Theorem<Ctx, Substitute_t<Body, V, Term>>
@@ -387,9 +365,6 @@ namespace logic
     // =========================================================
 
     // Macros para hacer las demostraciones más legibles
-    #define PROOF_BEGIN namespace { constexpr auto
-    #define PROOF_END ; }
-    #define QED return
     #define ASSUME(formula) assume<decltype(formula)>()
     #define DISCHARGE(hyp, theorem) implies_intro<decltype(hyp)>(theorem)
     #define APPLY_MP(a, b) modus_ponens(a, b)
