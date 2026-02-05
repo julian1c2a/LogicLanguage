@@ -46,3 +46,17 @@ add_logic_test(natural_deduction tests/natural_deduction_tests.cpp)
 
 # Test Comprehensivo (Validación exhaustiva)
 add_logic_test(comprehensive_tests tests/comprehensive_tests.cpp)
+
+# --- EJEMPLOS ERGONÓMICOS ---
+# Ejemplo de Sócrates (demostración clásica)
+add_executable(socrates_example examples/socrates_proof.cpp)
+target_link_libraries(socrates_example PRIVATE logic_language)
+
+if(MSVC)
+    target_compile_options(socrates_example PRIVATE /utf-8)
+else()
+    target_compile_options(socrates_example PRIVATE -fextended-identifiers -finput-charset=UTF-8)
+endif()
+
+# Añadir como test para verificar que compila
+add_test(NAME socrates_example COMMAND socrates_example)

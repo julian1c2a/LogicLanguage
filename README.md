@@ -27,6 +27,45 @@ El propósito de este proyecto es permitir la **escritura y verificación formal
 
 ## 🚀 Uso Rápido
 
+### Ejemplo: Demostración de Sócrates
+
+```cpp
+#include <logic_language/logic_language.hpp>
+using namespace logic;
+
+int main() {
+    constexpr auto socrates = "socrates"_var;
+    constexpr auto x = "x"_var;
+    
+    PROOF_BEGIN socrates_is_mortal = []() {
+        // Premisa: Todos los humanos son mortales
+        constexpr auto all_humans_mortal = ASSUME(forall(x, Human(x) >> Mortal(x)));
+        
+        // Premisa: Sócrates es humano  
+        constexpr auto socrates_human = ASSUME(Human(socrates));
+        
+        // Instanciar: Human(socrates) → Mortal(socrates)
+        constexpr auto implication = FORALL_ELIM(all_humans_mortal, socrates);
+        
+        // Modus Ponens: Mortal(socrates)
+        constexpr auto conclusion = APPLY_MP(socrates_human, implication);
+        
+        // Descargar hipótesis
+        constexpr auto step1 = DISCHARGE(Human(socrates), conclusion);
+        constexpr auto final = DISCHARGE(forall(x, Human(x) >> Mortal(x)), step1);
+        
+        QED final;
+    }();
+    PROOF_END
+    
+    // Verificación automática: si compila, la demostración es válida
+    ASSERT_TAUTOLOGY(socrates_is_mortal);
+    return 0;
+}
+```
+
+## 🚀 Uso Rápido
+
 ### Requisitos
 
 -   **CMake**: Versión 3.22 o superior.

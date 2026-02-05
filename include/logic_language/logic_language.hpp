@@ -245,10 +245,42 @@ namespace logic
     template <typename Context, typename Formula>
     struct Theorem;
 
+    // =========================================================
+    // === ERROR REPORTING SYSTEM ===
+    // =========================================================
+
+    // Conceptos para validación con mensajes claros
+    template<typename T>
+    concept ValidFormula = std::is_base_of_v<ExpressionBase, T>;
+
+    template<typename T>
+    concept ValidContext = requires {
+        typename T::size;
+    };
+
+    // Helpers para mensajes de error más claros
+    template<typename T>
+    struct FormulaChecker {
+        static_assert(ValidFormula<T>, 
+            "ERROR: El tipo proporcionado no es una fórmula lógica válida. "
+            "Asegúrate de usar P(x), Q(y), operadores lógicos (&&, ||, >>, !), "
+            "o cuantificadores (forall, exists).");
+        using type = T;
+    };
+
+    template<typename Ctx>
+    struct ContextChecker {
+        static_assert(ValidContext<Ctx>,
+            "ERROR: El contexto debe ser una TypeList<...> válida. "
+            "Ejemplo: TypeList<P_x, Q_y> para el contexto {P(x), Q(y)}.");
+        using type = Ctx;
+    };
+
     // --- REGLAS DE INFERENCIA ---
 
     // 1. Assumption (Gamma, A |- A)
     template <typename A>
+        requires ValidFormula<A>
     constexpr auto assume() -> Theorem<TypeList<A>, A>;
 
     // 2. Implication Introduction (Gamma |- A -> B)
@@ -349,5 +381,103 @@ namespace logic
     {
         return {};
     }
+
+    // =========================================================
+    // === ERGONOMIC MACROS (Syntactic Sugar) ===
+    // =========================================================
+
+    // Macros para hacer las demostraciones más legibles
+    #define PROOF_BEGIN namespace { constexpr auto
+    #define PROOF_END ; }
+    #define QED return
+    #define ASSUME(formula) assume<decltype(formula)>()
+    #define DISCHARGE(hyp, theorem) implies_intro<decltype(hyp)>(theorem)
+    #define APPLY_MP(a, b) modus_ponens(a, b)
+    #define BY_AXIOM(formula) axiom_identity(formula)
+    #define FORALL_INTRO(var, theorem) generalization(var, theorem)
+    #define FORALL_ELIM(theorem, term) universal_instantiation(theorem, term)
+
+    // Alias de tipos más legibles
+    template<typename A, typename B>
+    using If_Then = Implies<A, B>;
+    
+    template<typename A, typename B>
+    using And_Also = And<A, B>;
+    
+    template<typename A, typename B>
+    using Or_Else = Or<A, B>;
+    
+    template<typename A>
+    using Not_That = Not<A>;
+
+    // Helper para crear predicados con nombres más naturales
+    template<typename... Args>
+    constexpr auto Human(Args... args) { return Predicate<"Human", Args...>{}; }
+    
+    template<typename... Args>
+    constexpr auto Mortal(Args... args) { return Predicate<"Mortal", Args...>{}; }
+    
+    template<typename... Args>
+    constexpr auto Loves(Args... args) { return Predicate<"Loves", Args...>{}; }
+
+    // =========================================================
+    // === DEBUGGING AND INTROSPECTION ===
+    // =========================================================
+
+    // Utilidades para inspeccionar teoremas en tiempo de compilación
+    template<typename Theorem>
+    struct TheoremInfo;
+
+    template<typename Ctx, typename Formula>
+    struct TheoremInfo<Theorem<Ctx, Formula>> {
+        using context_type = Ctx;
+        using formula_type = Formula;
+        static constexpr size_t context_size = Ctx::size;
+        
+        // Helper para generar mensajes informativos
+        static constexpr const char* description() {
+            if constexpr (context_size == 0) {
+                return "Teorema sin hipótesis (axioma o completamente demostrado)";
+            } else if constexpr (context_size == 1) {
+                return "Teorema con 1 hipótesis";
+            } else {
+                return "Teorema con múltiples hipótesis";
+            }
+        }
+    };
+
+    // Macro para inspeccionar teoremas
+    #define INSPECT_THEOREM(thm) \
+        static_assert(TheoremInfo<decltype(thm)>::context_size >= 0, \
+            TheoremInfo<decltype(thm)>::description())
+
+    // Validadores semánticos
+    template<typename T>
+    constexpr bool is_tautology() {
+        // Un teorema es una tautología si tiene contexto vacío
+        if constexpr (requires { typename T::context_type; }) {
+            return std::is_same_v<typename T::context_type, TypeList<>>;
+        }
+        return false;
+    }
+
+    template<typename T>
+    constexpr bool has_assumptions() {
+        if constexpr (requires { typename T::context_type; }) {
+            return T::context_type::size > 0;
+        }
+        return false;
+    }
+
+    // Macros de validación semántica
+    #define ASSERT_TAUTOLOGY(thm) \
+        static_assert(is_tautology<decltype(thm)>(), \
+            "ERROR: Se esperaba una tautología (teorema sin hipótesis), " \
+            "pero el teorema tiene hipótesis pendientes")
+
+    #define ASSERT_HAS_ASSUMPTIONS(thm) \
+        static_assert(has_assumptions<decltype(thm)>(), \
+            "ERROR: Se esperaba un teorema con hipótesis, " \
+            "pero el teorema no tiene hipótesis")
 
 } // namespace logic
