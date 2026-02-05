@@ -23,6 +23,13 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 
+# Tools (variados)
+tools
+tools*/
+tools*/*
+tools*/*/*
+tools*/*/*/*
+
 # Archivos específicos del IDE
 .vscode/*
 !.vscode/launch.json
