@@ -43,3 +43,6 @@ add_logic_test(initial_tests tests/initial_tests.cpp)
 
 # Test Fase 3 (Deducción Natural - Nuevo)
 add_logic_test(natural_deduction tests/natural_deduction_tests.cpp)
+
+# Test Comprehensivo (Validación exhaustiva)
+add_logic_test(comprehensive_tests tests/comprehensive_tests.cpp)
