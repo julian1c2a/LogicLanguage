@@ -78,11 +78,21 @@ def print_bash_exports(env_vars):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    
+    # Detectar si se está llamando desde run_validation.py
+    output_format = "bash"  # Por defecto, formato bash
+    if "--windows-format" in args:
+        output_format = "windows"
+        args.remove("--windows-format")
+    
     env = get_intel_environment(args)
     
     # Verificación de seguridad
     if "INCLUDE" not in env:
         sys.stderr.write("ERROR: No se detectó INCLUDE. Visual Studio no se cargó correctamente.\n")
         sys.exit(1)
-        
-    print_bash_exports(env)
+    
+    if output_format == "windows":
+        print_windows_vars(env)
+    else:
+        print_bash_exports(env)
