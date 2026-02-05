@@ -60,3 +60,16 @@ endif()
 
 # Añadir como test para verificar que compila
 add_test(NAME socrates_example COMMAND socrates_example)
+
+# Ejemplo de inducción matemática
+add_executable(induction_example examples/induction_proof.cpp)
+target_link_libraries(induction_example PRIVATE logic_language)
+
+if(MSVC)
+    target_compile_options(induction_example PRIVATE /utf-8)
+else()
+    target_compile_options(induction_example PRIVATE -fextended-identifiers -finput-charset=UTF-8)
+endif()
+
+# Añadir como test para verificar que compila
+add_test(NAME induction_example COMMAND induction_example)

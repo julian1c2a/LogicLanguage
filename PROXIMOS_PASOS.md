@@ -63,22 +63,65 @@ Implementar las reglas de introducción y eliminación para el resto de los cone
 
 ---
 
-## ♾️ Fase 5: Teoría de Conjuntos (ZFC)
+## ♾️ Fase 5A: Sistema Aritmético (Alternativa Práctica)
 
-Una vez que el sistema lógico sea robusto, se usará como base para definir el lenguaje y los axiomas de la teoría de conjuntos ZFC.
+Para evitar la complejidad de construir toda la teoría de conjuntos antes de poder hacer demostraciones por inducción, implementamos un **sistema aritmético primitivo** basado en los axiomas de Peano.
 
-### 5.1. Predicados Primitivos
+### 5A.1. Números Naturales Primitivos
+
+-   `Natural<N>`: Tipo para representar números naturales como términos del lenguaje.
+-   `Succ<N>`: Función sucesor para construir números inductivamente.
+-   `zero()`: Constante para el número 0.
+
+### 5A.2. Axiomas de Peano
+
+-   **Axioma del Cero**: 0 es un número natural.
+-   **Axioma del Sucesor**: Si n es natural, entonces succ(n) es natural.
+-   **Axioma de Inyectividad**: succ es una función inyectiva.
+-   **Axioma de No-Circularidad**: 0 no es sucesor de ningún natural.
+
+### 5A.3. Principio de Inducción
+
+Implementación directa del esquema de inducción matemática:
+```cpp
+// Si P(0) y ∀n(P(n) → P(succ(n))), entonces ∀n P(n)
+template<template<typename> class P>
+constexpr auto induction_principle(
+    Theorem<TypeList<>, P<Natural<0>>>,  // Caso base
+    Theorem<TypeList<>, Forall<Var<"n">, Implies<P<Var<"n">>, P<Succ<Var<"n">>>>>>  // Paso inductivo
+) -> Theorem<TypeList<>, Forall<Var<"n">, P<Var<"n">>>>;
+```
+
+### 5A.4. Aritmética Básica
+
+-   **Suma**: Definida recursivamente con `axiom_add_zero()` y `axiom_add_succ()`.
+-   **Multiplicación**: Definida recursivamente con `axiom_mult_zero()` y `axiom_mult_succ()`.
+-   **Igualdad**: Predicado primitivo para comparar términos aritméticos.
+
+## ♾️ Fase 5B: Teoría de Conjuntos (ZFC) - Opcional
+
+Para demostraciones más avanzadas que requieran teoría de conjuntos completa.
+
+### 5B.1. Predicados Primitivos
 
 -   `In(a, b)`: Representa la relación de pertenencia ($a \in b$).
 -   `Equal(a, b)`: Representa la igualdad de conjuntos (definida a partir de la extensionalidad).
 
-### 5.2. Axiomas de ZFC
+### 5B.2. Axiomas de ZFC
 
 Implementar los axiomas como funciones que devuelven `Theorem<...>` sin premisas (axiomas globales).
 
 -   **Extensionalidad**: $\\forall x \\forall y (\\forall z (z \\in x \\iff z \\in y) \\implies x = y)$.
 -   **Par (Pairing)**: $\\forall a \\forall b \\exists x (a \\in x \\land b \\in x)$.
 -   ... y así sucesivamente con **Unión**, **Partes**, **Infinito**, etc.
+
+### 5B.3. Conexión con Aritmética
+
+Los números naturales del sistema aritmético pueden ser **interpretados** como conjuntos en ZFC:
+-   0 ≡ ∅ (conjunto vacío)
+-   succ(n) ≡ n ∪ {n} (construcción de von Neumann)
+
+Esto permite **migrar** demostraciones del sistema aritmético a ZFC cuando sea necesario.
 
 ---
 

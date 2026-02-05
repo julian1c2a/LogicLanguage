@@ -350,6 +350,18 @@ namespace logic
     #define FORALL_INTRO(var, theorem) generalization(var, theorem)
     #define FORALL_ELIM(theorem, term) universal_instantiation(theorem, term)
 
+    // Macros para inducción y aritmética
+    #define INDUCTION(base_case, inductive_step) induction_principle(base_case, inductive_step)
+    #define ZERO() Natural<0>{}
+    #define SUCC(n) Succ<decltype(n)>{}
+    #define NAT(n) Natural<n>{}
+    
+    // Macros para predicados aritméticos
+    #define EQUALS(a, b) Equal(a, b)
+    #define PLUS(a, b) Add(a, b)
+    #define TIMES(a, b) Mult(a, b)
+    #define IS_NATURAL(n) Predicate<"Natural", decltype(n)>{}
+
     // Alias de tipos más legibles
     template<typename A, typename B>
     using If_Then = Implies<A, B>;
@@ -372,6 +384,118 @@ namespace logic
     
     template<typename... Args>
     constexpr auto Loves(Args... args) { return Predicate<"Loves", Args...>{}; }
+
+    // =========================================================
+    // === ARITHMETIC AND INDUCTION SYSTEM ===
+    // =========================================================
+
+    // --- PRIMITIVE ARITHMETIC TYPES ---
+    
+    // Tipo para representar números naturales como términos
+    template<size_t N>
+    struct Natural : ExpressionBase {
+        static constexpr size_t value = N;
+        using Type = Natural<N>;
+    };
+
+    // Constructores para números naturales
+    constexpr auto zero() { return Natural<0>{}; }
+    template<size_t N>
+    constexpr auto nat() { return Natural<N>{}; }
+
+    // Función sucesor
+    template<typename N>
+    struct Succ : ExpressionBase {
+        using Predecessor = N;
+    };
+
+    template<typename N>
+    constexpr auto succ(N) { return Succ<N>{}; }
+
+    // --- PREDICADOS ARITMÉTICOS ---
+    
+    // Predicados básicos para aritmética
+    template<typename A, typename B>
+    constexpr auto Equal(A, B) { return Predicate<"Equal", A, B>{}; }
+    
+    template<typename A, typename B>
+    constexpr auto Less(A, B) { return Predicate<"Less", A, B>{}; }
+    
+    template<typename A, typename B>
+    constexpr auto Add(A, B) { return Predicate<"Add", A, B>{}; }
+    
+    template<typename A, typename B>
+    constexpr auto Mult(A, B) { return Predicate<"Mult", A, B>{}; }
+
+    // --- AXIOMAS DE PEANO ---
+    
+    // Axioma 1: 0 es un número natural
+    template<typename Zero = Natural<0>>
+    constexpr auto axiom_zero_is_natural() -> Theorem<TypeList<>, Predicate<"Natural", Zero>> {
+        return {};
+    }
+
+    // Axioma 2: Si n es natural, entonces succ(n) es natural
+    template<typename N>
+    constexpr auto axiom_succ_natural(Theorem<TypeList<>, Predicate<"Natural", N>>)
+        -> Theorem<TypeList<>, Predicate<"Natural", Succ<N>>> {
+        return {};
+    }
+
+    // Axioma 3: succ es inyectiva
+    template<typename M, typename N>
+    constexpr auto axiom_succ_injective(
+        Theorem<TypeList<>, Equal<Succ<M>, Succ<N>>>)
+        -> Theorem<TypeList<>, Equal<M, N>> {
+        return {};
+    }
+
+    // Axioma 4: 0 no es sucesor de ningún natural
+    template<typename N>
+    constexpr auto axiom_zero_not_succ()
+        -> Theorem<TypeList<>, Not<Equal<Natural<0>, Succ<N>>>> {
+        return {};
+    }
+
+    // --- PRINCIPIO DE INDUCCIÓN ---
+    
+    // Esquema de inducción: Si P(0) y ∀n(P(n) → P(succ(n))), entonces ∀n P(n)
+    template<template<typename> class P, typename Zero = Natural<0>>
+    constexpr auto induction_principle(
+        Theorem<TypeList<>, P<Zero>>,  // Caso base: P(0)
+        // Paso inductivo: ∀n(P(n) → P(succ(n)))
+        Theorem<TypeList<>, Forall<Var<"n">, Implies<P<Var<"n">>, P<Succ<Var<"n">>>>>>
+    ) -> Theorem<TypeList<>, Forall<Var<"n">, P<Var<"n">>>> {
+        return {};
+    }
+
+    // --- AXIOMAS ARITMÉTICOS BÁSICOS ---
+    
+    // Definición recursiva de la suma
+    template<typename N>
+    constexpr auto axiom_add_zero()
+        -> Theorem<TypeList<>, Equal<Add<N, Natural<0>>, N>> {
+        return {};
+    }
+
+    template<typename M, typename N>
+    constexpr auto axiom_add_succ()
+        -> Theorem<TypeList<>, Equal<Add<M, Succ<N>>, Succ<Add<M, N>>>> {
+        return {};
+    }
+
+    // Definición recursiva de la multiplicación
+    template<typename N>
+    constexpr auto axiom_mult_zero()
+        -> Theorem<TypeList<>, Equal<Mult<N, Natural<0>>, Natural<0>>> {
+        return {};
+    }
+
+    template<typename M, typename N>
+    constexpr auto axiom_mult_succ()
+        -> Theorem<TypeList<>, Equal<Mult<M, Succ<N>>, Add<Mult<M, N>, M>>> {
+        return {};
+    }
 
     // =========================================================
     // === DEBUGGING AND INTROSPECTION ===
