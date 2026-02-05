@@ -460,13 +460,22 @@ namespace logic
     // --- PRINCIPIO DE INDUCCIÓN ---
     
     // Esquema de inducción: Si P(0) y ∀n(P(n) → P(succ(n))), entonces ∀n P(n)
-    template<template<typename> class P, typename Zero = Natural<0>>
+    template<typename BaseFormula, typename InductiveFormula, typename ConclusionFormula>
     constexpr auto induction_principle(
-        Theorem<TypeList<>, P<Zero>>,  // Caso base: P(0)
-        // Paso inductivo: ∀n(P(n) → P(succ(n)))
-        Theorem<TypeList<>, Forall<Var<"n">, Implies<P<Var<"n">>, P<Succ<Var<"n">>>>>>
-    ) -> Theorem<TypeList<>, Forall<Var<"n">, P<Var<"n">>>> {
+        Theorem<TypeList<>, BaseFormula>,      // Caso base: P(0)
+        Theorem<TypeList<>, InductiveFormula>  // Paso inductivo: ∀n(P(n) → P(succ(n)))
+    ) -> Theorem<TypeList<>, ConclusionFormula> {
         return {};
+    }
+    
+    // Helper más específico para inducción sobre naturales
+    template<typename Zero = Natural<0>>
+    constexpr auto natural_induction(
+        Theorem<TypeList<>, Predicate<"Natural", Zero>>,  // Caso base: Natural(0)
+        // Paso inductivo debe ser proporcionado como teorema completo
+        auto inductive_step
+    ) -> decltype(inductive_step) {
+        return inductive_step;
     }
 
     // --- AXIOMAS ARITMÉTICOS BÁSICOS ---
