@@ -76,6 +76,11 @@ def print_bash_exports(env_vars):
             safe_val = value.replace("\\", "\\\\").replace('"', '\\"')
             print(f'export {key}="{safe_val}"')
 
+def print_windows_vars(env_vars):
+    """Imprime variables en formato Windows KEY=VALUE para integración con run_validation.py"""
+    for key, value in env_vars.items():
+        print(f"{key}={value}")
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     

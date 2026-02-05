@@ -19,9 +19,41 @@ def get_project_root():
 def get_intel_env():
     """
     Busca y carga las variables de entorno de Intel oneAPI.
+    Intenta múltiples métodos: setvarsall_intel.py, setvars.bat directo, y detección automática.
     Devuelve un diccionario con el entorno modificado o None si falla.
     """
-    # Posibles rutas de instalación de Intel oneAPI en Windows
+    
+    # Método 1: Usar nuestro script Python personalizado
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    setvarsall_script = os.path.join(script_dir, "setvarsall_intel.py")
+    
+    if os.path.exists(setvarsall_script):
+        print(f"[Intel] Intentando cargar entorno usando: {setvarsall_script}")
+        try:
+            # Ejecutar nuestro script Python que maneja Intel oneAPI
+            result = subprocess.run([
+                sys.executable, setvarsall_script, "--windows-format"
+            ], capture_output=True, text=True, timeout=30)
+            
+            if result.returncode == 0:
+                print("[Intel] Script personalizado ejecutado exitosamente")
+                # El script debería imprimir las variables de entorno
+                new_env = os.environ.copy()
+                
+                # Parsear la salida del script (formato KEY=VALUE)
+                for line in result.stdout.splitlines():
+                    if '=' in line and not line.startswith('#'):
+                        key, _, value = line.partition('=')
+                        if key.strip() and value.strip():
+                            new_env[key.strip()] = value.strip()
+                
+                return new_env
+            else:
+                print(f"[Intel] Script personalizado falló: {result.stderr}")
+        except Exception as e:
+            print(f"[Intel] Error ejecutando script personalizado: {e}")
+    
+    # Método 2: Buscar setvars.bat en ubicaciones estándar
     possible_paths = [
         r"C:\Program Files (x86)\Intel\oneAPI\setvars.bat",
         r"C:\Program Files\Intel\oneAPI\setvars.bat",
