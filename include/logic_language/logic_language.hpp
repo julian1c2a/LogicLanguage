@@ -178,9 +178,7 @@ namespace logic
 
     // 5. Operadores Binarios (debe ir después de cuantificadores para evitar ambigüedad)
     template <template <typename, typename> class Op, typename L, typename R, typename T, typename Rep>
-        requires std::is_base_of_v<ExpressionBase, Op<L, R>> && 
-                 !std::is_same_v<Op<L, R>, Forall<L, R>> && 
-                 !std::is_same_v<Op<L, R>, Exists<L, R>>
+        requires std::is_base_of_v<ExpressionBase, Op<L, R>>
     struct Substitute<Op<L, R>, T, Rep>
     {
         using type = Op<Substitute_t<L, T, Rep>, Substitute_t<R, T, Rep>>;
